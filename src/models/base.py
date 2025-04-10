@@ -9,7 +9,14 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 
 logger = logging.getLogger(__name__)
 
+
+def print_model(self):
+    text = ", ".join([f"{k}='{v}'" for k, v in self.__dict__.items()][1:])
+    return f"<{self.__class__.__name__}({text})>"
+
+
 Base = declarative_base()
+Base.__repr__ = print_model
 
 
 class Database:

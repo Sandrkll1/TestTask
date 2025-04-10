@@ -11,6 +11,7 @@ from src.di import Container
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     await app.container.db().initialize_database()
+    await app.container.redis_pool()
     yield
 
 
