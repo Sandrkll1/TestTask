@@ -27,9 +27,6 @@ async def login_for_access_token(
 
     access_token = await auth.create_access_token(data={"sub": str(user.id)})
     refresh_token = await auth.create_refresh_token(user.id)
-    _auth = await auth.auth_service.get(refresh_token=refresh_token)
-    if _auth:
-        await auth.auth_service.delete(_auth.refresh_token)
 
     await auth.auth_service.create(user_id=user.id, refresh_token=refresh_token)
 
