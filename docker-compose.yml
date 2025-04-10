@@ -1,0 +1,74 @@
+services:
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis_service
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - REDIS_HOST=redis_service
+      - REDIS_PORT=${REDIS_PORT}
+      - JWS_SECRET_KEY=${JWS_SECRET_KEY}
+      - JWS_ALGORITHM=${JWS_ALGORITHM}
+      - JWS_ACCESS_TOKEN_EXPIRE_MINUTES=${JWS_ACCESS_TOKEN_EXPIRE_MINUTES}
+      - JWS_REFRESH_TOKEN_EXPIRE_DAYS=${JWS_REFRESH_TOKEN_EXPIRE_DAYS}
+    networks:
+      - test_network
+    volumes:
+      - ./data:/data
+    restart: always
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    expose:
+      - "5432"
+    networks:
+      - test_network
+    restart: always
+
+  redis_service:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis_data:/data
+    networks:
+      - test_network
+    restart: always
+
+  adminer:
+    image: adminer
+    restart: always
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    networks:
+      - test_network
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
+  data:
+  redis_data:
+
+networks:
+  test_network:
