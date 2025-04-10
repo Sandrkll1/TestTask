@@ -4,7 +4,7 @@ from typing import Callable
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
-from src.models.courses import Course, Category
+from src.models.courses import Category, Course
 from src.services.CRUD import BaseCRUD
 
 

@@ -1,5 +1,5 @@
-from src.services.courses import CourseService, FavoriteService
 from src.schemas.course import Category, Course, UserFavorite
+from src.services.courses import CourseService, FavoriteService
 
 
 class CourseRepository:

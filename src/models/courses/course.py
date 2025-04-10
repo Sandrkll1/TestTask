@@ -1,8 +1,9 @@
-from src.models.base import Base
-
-from sqlalchemy import Integer, String, DateTime, ForeignKey, Date
-from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime, time
+
+from sqlalchemy import Date, DateTime, ForeignKey, Integer, String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from src.models.base import Base
 
 
 class Category(Base):

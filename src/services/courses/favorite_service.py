@@ -1,7 +1,7 @@
 from contextlib import AbstractContextManager
 from typing import Callable
 
-from sqlalchemy import select, and_
+from sqlalchemy import and_, select
 from sqlalchemy.orm import Session, selectinload
 
 from src.models.courses import Course, UserFavorite

@@ -3,7 +3,7 @@ from fastapi import Depends, HTTPException, Security, status
 
 from src.di import Container
 from src.models.user import User
-from src.repositories.auth_repository import oauth2_scheme, AuthRepository
+from src.repositories.auth_repository import AuthRepository, oauth2_scheme
 
 
 @inject

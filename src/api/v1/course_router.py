@@ -1,13 +1,12 @@
+from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends
 from fastapi_cache.decorator import cache
-from dependency_injector.wiring import Provide, inject
 
+from src.api.dependencies import get_current_user
 from src.di import Container
-
 from src.models.user import User
 from src.repositories.course_repository import CourseRepository
 from src.schemas.course import Category, Course, UserFavorite
-from src.api.dependencies import get_current_user
 
 router = APIRouter(prefix="/courses")
 

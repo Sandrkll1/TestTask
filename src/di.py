@@ -6,7 +6,7 @@ from src.models.base import Database
 from src.repositories.auth_repository import AuthRepository
 from src.repositories.course_repository import CourseRepository
 from src.services.courses import CourseService, FavoriteService
-from src.services.user import UserService, AuthService
+from src.services.user import AuthService, UserService
 from src.settings.auth import AuthSettings
 from src.settings.database import DatabaseSettings
 from src.settings.redis import RedisSettings
