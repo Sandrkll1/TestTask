@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 
 from src import redis
 from src.models.base import Database
+from src.repositories.auth_repository import AuthRepository
+from src.services.user import UserService, AuthService
 from src.settings.auth import AuthSettings
 from src.settings.database import DatabaseSettings
 from src.settings.redis import RedisSettings
@@ -27,4 +29,17 @@ class Container(containers.DeclarativeContainer):
         redis.init_redis_pool,
         host=redis_settings.provided.host,
         # password=config.redis_password,
+    )
+
+    user_service = providers.Factory(UserService, session_factory=db.provided.session)
+    auth_service = providers.Factory(AuthService, session_factory=db.provided.session)
+
+    auth_repository = providers.Factory(
+        AuthRepository,
+        access_token_expire_minutes=auth_settings.provided.access_token_expire_minutes,
+        refresh_token_expire_days=auth_settings.provided.refresh_token_expire_days,
+        secrete_key=auth_settings.provided.secret_key,
+        algorithm=auth_settings.provided.algorithm,
+        user_service=user_service,
+        auth_service=auth_service
     )
