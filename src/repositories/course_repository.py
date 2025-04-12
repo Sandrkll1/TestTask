@@ -28,7 +28,7 @@ class CourseRepository:
             offset: int = 0
     ) -> list[Course]:
 
-        if search_query:
+        if category_id:
             courses = await self.course_service.get_courses_by_category(
                 category_id=category_id,
                 limit=limit,
